@@ -6,12 +6,14 @@
         <span fxFlex="grow"></span>
         <firebase-ui fxLayout="column" (signInSuccessWithAuthResult)="successCallback($event)"
             (signInFailure)="errorCallback($event)" (uiShown)="uiShownCallback()"></firebase-ui>
-        <button class="SignInbutton">
+        <button class="SignInbutton" (click)="logout()">
 
-            <button (click)="logout()">Logout</button>
+            Logout
+                <fa-icon (click)="logout()" class="fas faSignOutAlt fa-lg" [icon]="['fas', 'sign-out-alt']">
+                </fa-icon>
+           
 
-            <fa-icon (click)="logout()" class="fas faSignOutAlt fa-lg" [icon]="['fas', 'sign-out-alt']">
-            </fa-icon>
+           
         </button>
     </mat-toolbar>
 
