@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "timesheet-bdcf5": {
+      "hosting": {
+        "timesheet": [
+          "timesheet-bdcf5"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "timesheet-bdcf5"
+  }
+}
