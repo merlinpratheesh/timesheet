@@ -12,6 +12,7 @@
     "indexes": "firestore.indexes.json"
   },
   "storage": {
+    "source": "**",
     "rules": "storage.rules"
   }
 }

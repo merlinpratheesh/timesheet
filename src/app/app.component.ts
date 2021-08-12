@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult,
-   FirebaseuiAngularLibraryService } from 'firebaseui-angular';
+import {
+  FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult,
+  FirebaseuiAngularLibraryService
+} from 'firebaseui-angular';
 import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserdataService, userProfile } from './service/userdata.service';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 
 @Component({
@@ -27,6 +30,7 @@ export class AppComponent implements AfterViewInit {
     }
     this.getObservableauthStateSub = authdetails.subscribe((val: any) => {
       this.subjectauth.next(val);
+      console.log(val);
     });
     return this.subjectauth;
   };
@@ -43,29 +47,39 @@ export class AppComponent implements AfterViewInit {
     return this.subjectonline;
   }
   OnlineCheck: any;
-  AfterOnlineCheckAuth: Observable<any>;
 
+  AfterOnlineCheckAuth: Observable<any>;
   constructor(public afAuth: AngularFireAuth, public firebaseuiAngularLibraryService: FirebaseuiAngularLibraryService, public developmentservice: UserdataService,
-    private router: Router) {
-      this.firebaseuiAngularLibraryService.firebaseUiInstance.disableAutoSignIn();
+    private router: Router, private db: AngularFirestore,) {
+    this.firebaseuiAngularLibraryService.firebaseUiInstance.disableAutoSignIn();
 
     this.myonline = this.getObservableonline(this.developmentservice.isOnline$);
     this.myauth = this.getObservableauthState(this.afAuth.authState);
+    console.log('constructor');
+    console.log(this.myauth);
+    console.log(this.myonline);
+
+
+
     this.AfterOnlineCheckAuth = this.myonline.pipe(
       switchMap((onlineval: any) => {
+        console.log(onlineval);
         if (onlineval === true) {
+          console.log('reachd', this.myauth);
           return this.myauth.pipe(
-            switchMap((afterauth: firebase.User) => {
+            switchMap((afterauth: any) => {
               if (afterauth !== null && afterauth !== undefined) {
                 this.myuserProfile.userAuthenObj = afterauth;
-                console.log(afterauth);
+
+                console.log(this.myuserProfile.userAuthenObj);
+                
 
                 this.router.navigate(['/admin']);
 
               } else if (afterauth === null) {
                 this.router.navigate(['']);
               }
-              return of(afterauth);
+              return of(onlineval);
             })
           );
         } else {

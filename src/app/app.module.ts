@@ -11,7 +11,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { OfflineScreenComponent } from './offline-screen/offline-screen.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
 import { AdminComponent } from './admin/admin.component';
 import { TaskComponent } from './admin/task/task.component';
@@ -45,6 +45,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   ],
   imports: [
     BrowserModule,
+    DragDropModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AppSharedModule,

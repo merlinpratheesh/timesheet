@@ -1,7 +1,12 @@
-
+{{AfterOnlineCheckAuth|async}}
+<div *ngIf="AfterOnlineCheckAuth ; else waitforOnline">
 
     <mat-toolbar color="primary">
         <h4>timeSheet</h4>
+        <span fxFlex="grow"></span>
+
+{{this.myauth.value?.displayName}}
+{{this.myuserProfile.userAuthenObj?.displayName}}
 
         <span fxFlex="grow"></span>
         <firebase-ui fxLayout="column" (signInSuccessWithAuthResult)="successCallback($event)"
@@ -10,27 +15,16 @@
 
             Logout
                 <fa-icon (click)="logout()" class="fas faSignOutAlt fa-lg" [icon]="['fas', 'sign-out-alt']">
-                </fa-icon>
-           
-
-           
+                </fa-icon> 
         </button>
     </mat-toolbar>
 
-
-  
-
-<div *ngIf="AfterOnlineCheckAuth | async as OnlineReady; else waitforOnline">
-
-    <router-outlet></router-outlet>
-    
-  
+<app-admin [authEmail]="this.myuserProfile.userAuthenObj" ></app-admin>
   </div>
   
   <ng-template #waitforOnline>
     
-    <router-outlet></router-outlet>
-    
+No Internet    
     
   </ng-template>
   

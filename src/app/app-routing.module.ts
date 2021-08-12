@@ -5,13 +5,12 @@ import { AppComponent } from './app.component';
 import { OfflineScreenComponent } from './offline-screen/offline-screen.component';
 
 const routes: Routes = [
-  { path: 'app', component: AppComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'offline', component: OfflineScreenComponent },
+  { path: 'Admin', component: AppComponent },
 
-  { path: '',   redirectTo: 'admin', pathMatch: 'full' },
+  { path: '',   redirectTo: 'Admin', pathMatch: 'full' },
 
-  { path: '**', redirectTo: 'admin', pathMatch: 'full'},
+  { path: '**', redirectTo: 'Admin', pathMatch: 'full'},
+
 ];
 
 @NgModule({
